@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'Yuvaraj93r5', choices: ['dev', 'staging', 'prod'], description: 'Select the target environment')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: ''
+            }
+        }
+        stage('Show Parameter') {
+            steps {
+                echo "Selected environment: ${params.ENVIRONMENT}"
+            }
+        }
+        stage('Build for Environment') {
+            steps {
+                echo "Building the application for the ${params.ENVIRONMENT} environment..."
+            }
+        }
+    }
+}
